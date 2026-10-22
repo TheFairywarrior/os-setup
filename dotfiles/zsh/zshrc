@@ -1,0 +1,11 @@
+# Managed by os-setup (dotfiles/zsh/zshrc). Machine-specific bits go in ~/.zshrc.local.
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""  # starship draws the prompt
+plugins=(git golang docker aws python)
+
+[[ -s $ZSH/oh-my-zsh.sh ]] && source "$ZSH/oh-my-zsh.sh"
+
+source ~/.my_profile
+
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local

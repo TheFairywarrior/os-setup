@@ -1,0 +1,27 @@
+theme = "onedark"
+
+[editor]
+true-color = true
+mouse = true
+cursorline = true
+scrolloff = 5
+line-number = "relative"
+soft-wrap.enable = true
+
+[editor.auto-save]
+focus-lost = true
+after-delay.enable = true
+after-delay.timeout = 500
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "position", "file-encoding", "file-type"]
+
+[editor.indent-guides]
+render = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"

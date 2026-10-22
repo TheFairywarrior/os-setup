@@ -1,0 +1,47 @@
+# Managed by os-setup (dotfiles/zsh/my_profile).
+# Every tool is guarded, so a machine missing one still gets a working shell.
+
+export EDITOR=hx
+export VISUAL=hx
+
+# ---- PATH (keep in sync with lib/common.sh)
+export GOROOT="$HOME/Documents/apps/go"
+export GOPATH="$HOME/Documents/go"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$GOROOT/bin:$GOPATH/bin:$HOME/Documents/apps/bin:$PATH"
+[[ -d $HOME/Documents/apps/flutter/bin ]] && export PATH="$HOME/Documents/apps/flutter/bin:$PATH"
+[[ -d $HOME/.lmstudio/bin ]] && export PATH="$PATH:$HOME/.lmstudio/bin"
+
+# ---- Node (nvm)
+export NVM_DIR="$HOME/.nvm"
+[[ -s $NVM_DIR/nvm.sh ]] && source "$NVM_DIR/nvm.sh"
+[[ -s $NVM_DIR/bash_completion ]] && source "$NVM_DIR/bash_completion"
+
+# ---- Java / Kotlin (SDKMAN)
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s $SDKMAN_DIR/bin/sdkman-init.sh ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# ---- Aliases
+alias zsh_config="source ~/.zshrc"
+alias run_venv="source venv/bin/activate"
+alias sync_gdrive="rclone --progress sync gdrive:/ ~/Documents/google_drive"
+alias sync_gdrive_up="rclone --progress sync ~/Documents/google_drive gdrive:/"
+
+# ---- Auto-activate a project's .venv on cd
+auto_venv() {
+  if [[ -f "$PWD/.venv/bin/activate" ]]; then
+    # Only activate if not already in this venv
+    if [[ "$VIRTUAL_ENV" != "$PWD/.venv" ]]; then
+      source "$PWD/.venv/bin/activate"
+    fi
+  elif [[ -n "$VIRTUAL_ENV" ]] && [[ "$PWD" != "$(dirname "$VIRTUAL_ENV")"* ]]; then
+    # Deactivate when leaving the project directory
+    deactivate 2>/dev/null
+  fi
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook chpwd auto_venv
+auto_venv  # run once on shell start
+
+# ---- Prompt
+command -v starship >/dev/null && eval "$(starship init zsh)"

@@ -1,0 +1,25 @@
+[[language]]
+name = "python"
+language-servers = ["pyright", "ruff"]
+auto-format = true
+rulers = [88]
+formatter = { command = "sh", args = ["-c", "exec ruff check --select I --fix-only --exit-zero --stdin-filename \"$PWD/$(basename \"%{buffer_name}\")\" - | ruff format --stdin-filename \"$PWD/$(basename \"%{buffer_name}\")\" -"] }
+
+[language.debugger]
+name = "debugpy"
+transport = "tcp"
+command = "uv"
+args = ["run", "python", "-m", "debugpy.adapter"]
+port-arg = "--port {}"
+
+[[language.debugger.templates]]
+name = "launch"
+request = "launch"
+completion = [{ name = "entrypoint", completion = "filename" }]
+args = { mode = "debug", program = "{0}" }
+
+[[language]]
+name = "go"
+
+[[language]]
+name = "rust"
