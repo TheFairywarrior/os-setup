@@ -5,6 +5,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/../lib/common.sh"
 # Native (rpm/deb) apps. Sandboxed desktop apps are in flatpak.sh.
 
 pkg_install kitty
+link "$REPO_DIR/dotfiles/kitty" "$HOME/.config/kitty"
 
 # DBeaver: vendor package, no repo.
 if pkg_installed dbeaver-ce; then

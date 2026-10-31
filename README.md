@@ -27,7 +27,7 @@ You're asked for your sudo password once, at the start. Each module runs separat
 | `java` | SDKMAN with java, kotlin and gradle |
 | `helix` | helix, symlinks `~/.config/helix`, prints `hx --health` for python/go/rust |
 | `docker` | Docker Engine + compose (skipped if `docker` already exists), adds you to the `docker` group |
-| `apps` | DBeaver, VS Code, kitty, lazygit, gh, 1Password, Chrome |
+| `apps` | DBeaver, VS Code, kitty (+ symlinks `~/.config/kitty`), lazygit, gh, 1Password, Chrome |
 | `flatpak` | Slack, Discord, Zoom, Thunderbird, VLC, ONLYOFFICE, draw.io |
 
 ## Dotfiles
@@ -42,7 +42,7 @@ Machine-specific shell config (work tools, gcloud and so on) goes in `~/.zshrc.l
 setup.sh          entrypoint: module order, logging, summary
 lib/common.sh     helpers: pkg_install, add_repo_fedora/add_repo_apt, install_remote_pkg, link, ...
 modules/*.sh      one file per area; each can also be run on its own: bash modules/go.sh
-dotfiles/         helix + zsh config
+dotfiles/         helix + kitty + zsh config
 ```
 
 ## Adding things
