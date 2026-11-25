@@ -20,14 +20,14 @@ You're asked for your sudo password once, at the start. Each module runs separat
 | `git` | Sets git name, email, default branch and editor. Values that are already set are left alone |
 | `shell` | oh-my-zsh, starship, symlinks `~/.zshrc` and `~/.my_profile`, makes zsh the login shell |
 | `fonts` | 0xProto Nerd Font |
-| `python` | uv, the latest CPython (`uv python install --default`), ruff and pyright |
+| `python` | uv, the latest CPython (`uv python install --default`), ruff, pyright and pre-commit |
 | `go` | Latest Go in `~/Documents/apps/go`, plus gopls, golangci-lint (+ langserver) and dlv |
 | `rust` | rustup (stable) with rust-analyzer, clippy and rustfmt, plus lldb (`lldb-dap`) for debugging |
 | `node` | nvm and the Node LTS release |
 | `java` | SDKMAN with java, kotlin and gradle |
 | `helix` | helix, symlinks `~/.config/helix`, prints `hx --health` for python/go/rust |
 | `docker` | Docker Engine + compose (skipped if `docker` already exists), adds you to the `docker` group |
-| `apps` | DBeaver, VS Code, kitty (+ symlinks `~/.config/kitty`), lazygit, gh, 1Password, Chrome |
+| `apps` | DBeaver, VS Code, kitty (+ symlinks `~/.config/kitty`), lazygit, gh, glab, gitleaks, 1Password, Chrome |
 | `flatpak` | Slack, Discord, Zoom, Thunderbird, VLC, ONLYOFFICE, draw.io |
 
 ## Dotfiles
@@ -51,3 +51,7 @@ dotfiles/         helix + kitty + zsh config
 - **A package from a vendor repo**: add the repo with `add_repo_fedora` / `add_repo_apt`, then call `pkg_install`.
 - **A flatpak**: add its id to `apps` in `modules/flatpak.sh`. Append `:command` to skip it when a native install exists.
 - **A new module**: create `modules/<name>.sh` starting with the same `source .../lib/common.sh` line, then add `<name>` to `MODULES` in `setup.sh`.
+
+## Git hooks
+
+`.pre-commit-config.yaml` runs gitleaks, shellcheck and some whitespace/YAML/TOML checks on each commit. Enable it once per clone with `pre-commit install` (pre-commit comes from the `python` module).

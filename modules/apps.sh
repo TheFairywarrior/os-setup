@@ -45,7 +45,7 @@ repo_gpgcheck=1
 gpgkey=https://downloads.1password.com/linux/keys/1password.asc'
 
   copr_enable dejan/lazygit
-  pkg_install code 1password gh lazygit
+  pkg_install code 1password gh lazygit glab gitleaks
 else
   # VS Code's .deb adds its own apt repo; pre-answer the prompt.
   if pkg_installed code; then
@@ -70,6 +70,26 @@ else
     case "$(uname -m)" in x86_64) arch=x86_64 ;; aarch64) arch=arm64 ;; esac
     curl -fsSL "https://github.com/jesseduffield/lazygit/releases/download/$tag/lazygit_${tag#v}_Linux_$arch.tar.gz" |
       tar -xz -C "$HOME/Documents/apps/bin" lazygit
+  fi
+
+  # glab: GitLab publishes a .deb with each release.
+  if have glab; then
+    ok "glab already installed"
+  else
+    tag="$(curl -fsSL 'https://gitlab.com/api/v4/projects/gitlab-org%2Fcli/releases/permalink/latest' | jq -r .tag_name)"
+    log "installing glab $tag"
+    install_remote_pkg "https://gitlab.com/gitlab-org/cli/-/releases/$tag/downloads/glab_${tag#v}_linux_$(arch_go).deb"
+  fi
+
+  # gitleaks: Ubuntu's package is years old; use the release binary.
+  if have gitleaks; then
+    ok "gitleaks already installed"
+  else
+    tag="$(github_latest_tag gitleaks/gitleaks)"
+    log "installing gitleaks $tag"
+    case "$(uname -m)" in x86_64) arch=x64 ;; aarch64) arch=arm64 ;; esac
+    curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/$tag/gitleaks_${tag#v}_linux_$arch.tar.gz" |
+      tar -xz -C "$HOME/Documents/apps/bin" gitleaks
   fi
 fi
 ok "apps done"

@@ -14,8 +14,8 @@ fi
 # Latest CPython, also exposed as python/python3 in ~/.local/bin.
 uv python install --default
 
-# Language servers used by helix.
-for tool in ruff pyright; do
+# Language servers used by helix, plus pre-commit for git hooks.
+for tool in ruff pyright pre-commit; do
   uv tool install "$tool"
 done
 ok "python done"
